@@ -261,6 +261,8 @@ def runLocusGraph(self,taskPrefix="",dependencies=None):
         for gseg in gsegGroup :
             graphCmd.extend(["--region",gseg.bamRegion])
         graphCmd.extend(["--min-candidate-sv-size", self.params.minCandidateVariantSize])
+        #Added by Sara Nasser @ TGEN on 10/5/2020
+        graphCmd.extend(["--min-mapq", self.params.minMapq])
         graphCmd.extend(["--min-edge-observations", self.params.minEdgeObservations])
         graphCmd.extend(["--ref",self.params.referenceFasta])
         for bamPath in self.params.normalBamList :
@@ -511,6 +513,8 @@ def runHyGen(self, taskPrefix="", dependencies=None) :
         hygenCmd.extend(["--bin-count", "1"])
         hygenCmd.extend(["--max-edge-count", str(self.params.graphNodeMaxEdgeCount)])
         hygenCmd.extend(["--min-candidate-sv-size", self.params.minCandidateVariantSize])
+        #Added by Sara Nasser @ TGEN on 10/5/2020
+        hygenCmd.extend(["--min-mapq", self.params.minMapq])
         hygenCmd.extend(["--min-candidate-spanning-count", self.params.minCandidateSpanningCount])
         hygenCmd.extend(["--min-scored-sv-size", self.params.minScoredVariantSize])
         hygenCmd.extend(["--ref",self.params.referenceFasta])
@@ -531,6 +535,10 @@ def runHyGen(self, taskPrefix="", dependencies=None) :
                 hygenCmd.extend(["--somatic-output-file", self.somaticVcfPaths[-1]])
                 hygenCmd.extend(["--min-somatic-score", self.params.minSomaticScore])
                 hygenCmd.extend(["--min-pass-somatic-score", self.params.minPassSomaticScore])
+                #added by Sara Nasser @TGEN  maxDepthFactor
+                #This variable can now be updated via ini file
+                hygenCmd.extend(["--somatic-max-depth-factor", self.params.maxDepthFactor])
+                #end of SN edit 
 
         # Setup remote read retrieval for insertions:
         def isEnableRemoteReadRetrieval() :
